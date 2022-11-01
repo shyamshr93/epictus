@@ -245,7 +245,9 @@
                 <img class="big-chungus" src="./img/big_chungus.png" alt="big chungus">
             </div>
             
-		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="document.getElementById('myFileInput').click()">
+		    <!-- <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="document.getElementById('myFileInput').click()"> -->
+		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="quesLoad()">
+
            
           
         </div>
@@ -257,11 +259,7 @@
         </div>
 		<input type="file" id="myFileInput" style="display: none;" />
 	</body>
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+   
 	<script>
 
         function stripHtml(html)
@@ -277,9 +275,13 @@
 			return;
 		}
 		var reader = new FileReader();
-		reader.onload = function(e) {
-			var contents = e.target.result;
-			var obj1 =JSON.parse(contents)
+		reader.onload = function(e) {var contents = e.target.result;}
+		reader.readAsText(file);
+    };
+        function quesLoad(){
+			$.getJSON("https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json", function (obj1) {
+                
+			//var obj1 =JSON.parse(contents)
             var fileTitle = obj1.data.test.name;
             console.log(fileTitle)
             var secObj = obj1.data.sections[0]
@@ -322,13 +324,22 @@
             //     syncTypeset.appendChild(done.cloneNode(true))
             // }, 3000)
 			
-		};
-		reader.readAsText(file);
-		}
+		})
+    }
 		 document.getElementById('myFileInput').addEventListener('change', readSingleFile, false);
         
         
        
 	</script>
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+     crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+     crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
 	
 </html>
