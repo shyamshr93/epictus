@@ -17,8 +17,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script>window.MathJax = { MathML: { extensions: ["mml3.js", "content-mathml.js"]}};</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=MML_HTMLorMML"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <style>
 
@@ -48,10 +48,10 @@
         width: 50%;
         float: left;
         padding-left: 20px;
+        height: 150px;
     }
     .options-cont{
         display: flex;
-        margin-top: 10px;
     }
     .btnQues{
         font-weight: 700;
@@ -93,7 +93,7 @@
     }
 
     .ques-cont{
-        display: inline-flex;
+        display: inline-block;
     }
 
     .ques-title{
@@ -101,6 +101,7 @@
         font-weight: 460;   
         margin-bottom: 7px;
         margin-top: 15px;
+        display: inline-flex;
     }
 
     .ques-radio{
@@ -109,35 +110,22 @@
 
     .ques-options{
         margin-left: 10px;
+        float: left;
     }
 
     .search-icon{
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-left:10px;
-        background-color: #6d6d6d;
-        color: white;
-        padding: 2px;
-        padding-left: 5px;
-        padding-right: 5px;
-        border-radius: 5px;
-    }
-
-    .mikasa1{
-        position: absolute;
-        right: 0;
-        top: 0;
-        margin: 20px;
-        height: 120px;
-    }
-
-    .mikasa2{
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        margin: 20px;
-        height: 120px;
-        margin-bottom: 30px;
+        margin-top: -22px;
+    margin-bottom: 15px;
+    /* margin-left: 10px; */
+    background-color: #6d6d6d;
+    color: white;
+    padding: 2px;
+    display: table;
+    font-size: 0.6em;
+    position: absolute;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
     }
 
 
@@ -250,43 +238,26 @@
 
     
 </style>
-	<body class="container">
+	<body class="container-fluid">
         <div class="container text-center mt-1" id="welcome">
             <div style="display: inline-flex;">
-                <img class="cat" src="./img/cat.gif" alt="cat">
-                <h1 class="header mx-3">WELCOME TO WHEEBOTICS7</h1>
+                <h1 class="header mx-3">WELCOME</h1>
                 <img class="big-chungus" src="./img/big_chungus.png" alt="big chungus">
             </div>
-            <img class="aot mt-3" src="./img/sasageyo.jpg" > 
-            <p class="aot-text mt-2">shinzou wo sasageyo</p>
-            <P class="aot-text">DEDICATE YOUR HEART</P>
-            <div class="cheems-gif pt-5">
-                <img src="./img/doge.gif" class="gifs mr-5" alt="doge">
-                <img src="./img/hamster.gif" class="gifs hamster" alt="hamster" class="mx-5" height="130px">
-                <img src="./img/cheems.gif" class="gifs ml-5" alt="cheems" >
-            </div>
+            
 		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="document.getElementById('myFileInput').click()">
-            <img class="dababy mt-1" src="./img/lessgo.jpg" alt="runaway from dababy">
-            <p>lessss goooooooo</p>
-            <div class="mikasa1">
-                <img height="120px"  src="./img/mikasa1.png" alt="mikasa" >
-                <div style="font-size: 0.7em;">erehhhh</div>
-            </div>
-            <div class="mikasa2">
-                <img height="120px"  src="./img/mikasa2.jpg" alt="mikasa" >
-                <div style="font-size: 0.7em;">thiccasa</div>
-            </div>
+           
+          
         </div>
         <div id="main" class="container-fluid mt-2 py-3" style="display: none;">
-            <h1 class="header">QUESTIONS</h1>
-            <a class="mt-2 ml-2" style="display: block;" href="https://www.youtube.com/watch?v=yZPsWGiqjs8" target="_blank">go crazy go stupid!!!!!!</a>
+            <h3 id="tbTitle">QUESTIONS</h3>
             <div style="display: flex;">
                 <div id="demo" class="container-fluid"></div>
             </div>
         </div>
 		<input type="file" id="myFileInput" style="display: none;" />
 	</body>
-
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -309,58 +280,55 @@
 		reader.onload = function(e) {
 			var contents = e.target.result;
 			var obj1 =JSON.parse(contents)
-            var secObjMain = obj1.data.sections
+            var fileTitle = obj1.data.test.name;
+            console.log(fileTitle)
+            var secObj = obj1.data.sections[0]
 			var x = "";
-			secObjMain.forEach(secObj => {
+            
+			
                 var quesAll = secObj.questions;
                 quesAll.forEach(questions => {
 				var ques = questions
                 console.log(ques)
-				var _count = questions.order + ".    "
+				var _count = "<b>" + questions.order + "</b>" + ". &nbsp;"
                 ques.text =  ques.name
                 var z = "<div class='jeff'>"
-				 z += "<div class='ques-cont'> <div class='ques-title'>" + _count + ques.text + "</div> <a class='search-icon' target=\"_blank\" href='https://www.google.com/search?q=" + ques.text +"'>search</a></div>";
+				 z += "<div class='ques-cont'> <div class='ques-title'>" + _count + ques.text + "</div> <a class='search-icon' target=\"_blank\" href='https://www.google.com/search?q=" + ques.nameText +"'>search</a></div>";
 				
-                z += "<div class='options-cont'>"
+                z += "<div class='options-cont row'>"
+                const alphabets =["(a)","(b)","(c)","(d)"]
                  for(j in ques.options){
                     ques.options[j].value = stripHtml(ques.options[j].value);
-					z += "<input class='ques-radio' type=\"radio\" id=\"" + ques.options[j]._id + "\"name=\"" + ques._id + "\" value=\"" +ques.options[j]._id + "\"><label class='ques-options' for=\"" + ques.options[j]._id + "\">"+ques.options[j].name+"</label><br>"
+					
+                    z+= "<div class='options-cont col'><div>" + "&nbsp;" + alphabets[j] + "&nbsp;</div>" + ques.options[j].name + "</div>"
+                    //z += "<input class='ques-radio' type=\"radio\" id=\"" + ques.options[j]._id + "\"name=\"" + ques._id + "\" value=\"" +ques.options[j]._id + "\"><label class='ques-options' for=\"" + ques.options[j]._id + "\">"+ques.options[j].name+"</label>"
 				}
                 z+= "</div></div>"
                 x+=z
 			})
-            });
+            
 			
 			document.getElementById("demo").innerHTML = x;
+			document.getElementById("tbTitle").innerText = fileTitle;
             document.getElementById("welcome").style.display = "none";
             document.getElementById("main").style.display = "block";
+            const content = document.createElement('span')
+            content.textContent = document.getElementById("main").textContent
+
+            const syncTypeset = document.querySelector('#main')
+            //syncTypeset.appendChild(content.cloneNode(true))
+            MathJax.typeset()
+            // setTimeout(function () {
+            //     syncTypeset.appendChild(done.cloneNode(true))
+            // }, 3000)
 			
 		};
 		reader.readAsText(file);
 		}
-
 		 document.getElementById('myFileInput').addEventListener('change', readSingleFile, false);
         
         
-        //  var y = "{\"id\":\"4721234565431195\",\"questions\":[{\"id\":\"1757804441203144\",\"text\":\"CD-ROM stands for\",\"options\":[{\"id\":\"5934605093389951\",\"value\":\"Compactable Read Only Memory\"},{\"id\":\"3897219397306844\",\"value\":\"Compact Data Read Only Memory\"},{\"id\":\"6924269554187199\",\"value\":\"Compactable Disk Read Only Memory\"},{\"id\":\"4167537656173850\",\"value\":\"Compact Disk Read Only Memory\"}]},{\"id\":\"3800224946396849\",\"text\":\"An Error in Software or Hardware is called a Bug. What is an alternative computer jargon for it?\",\"options\":[{\"id\":\"1901386529251341\",\"value\":\"Leech\"},{\"id\":\"7417295916075245\",\"value\":\"Squid\"},{\"id\":\"3501542765879109\",\"value\":\"Slug\"},{\"id\":\"5014796043276231\",\"value\":\"Glitch\"}]},{\"id\":\"7450990457687821\",\"text\":\"A Computer assisted method for the Recording and Analyzing of existing or Hypothetical Systems is\",\"options\":[{\"id\":\"4529291680509715\",\"value\":\"Data Transmission\"},{\"id\":\"5325361783574316\",\"value\":\"Data Flow\"},{\"id\":\"7242814913678546\",\"value\":\"Data Capture\"},{\"id\":\"8343294349488039\",\"value\":\"Data Processing\"}]},{\"id\":\"3274550789171984\",\"text\":\"Computer is an …… device\",\"options\":[{\"id\":\"2394644970416826\",\"value\":\"Eltron\"},{\"id\":\"3240523256100785\",\"value\":\"Proton\"},{\"id\":\"4910377355645280\",\"value\":\"Eletric\"},{\"id\":\"3754496647941834\",\"value\":\"Electronic\"}]},{\"id\":\"7306616599608269\",\"text\":\"Memory Unit is a part of\",\"options\":[{\"id\":\"5440598847777315\",\"value\":\"Input device\"},{\"id\":\"8405503882525440\",\"value\":\"Control unit\"},{\"id\":\"6447111797328606\",\"value\":\"Output device\"},{\"id\":\"7054495444118573\",\"value\":\"Central Processing  Unit\"}]},{\"id\":\"5759694823419993\",\"text\":\"Which is not a computer classification?\",\"options\":[{\"id\":\"7390470736245745\",\"value\":\"mainframe\"},{\"id\":\"3576067771052732\",\"value\":\"maxframe\"},{\"id\":\"5572079404066056\",\"value\":\"mini\"},{\"id\":\"2430006125294903\",\"value\":\"notebook\"}]},{\"id\":\"5421882108781578\",\"text\":\"Any type of storage that is used for holding information between steps in its processing is\",\"options\":[{\"id\":\"7147333478939088\",\"value\":\"Intermediate storage\"},{\"id\":\"3563431868513772\",\"value\":\"Storage unit\"},{\"id\":\"7740158089480101\",\"value\":\"CPU\"},{\"id\":\"4434036056217952\",\"value\":\"Primary Storage\"}]},{\"id\":\"2139626195659559\",\"text\":\"A Computer Program that converts Assembly Language to Machine Language is\",\"options\":[{\"id\":\"200443005443439\",\"value\":\"Compiler\"},{\"id\":\"4905743355901\",\"value\":\"Interpreter\"},{\"id\":\"3109188776551219\",\"value\":\"Assembler\"},{\"id\":\"6957481140445281\",\"value\":\"Comparator\"}]},{\"id\":\"8589228498415251\",\"text\":\"1 Nibble equals to\",\"options\":[{\"id\":\"5846632671949356\",\"value\":\"8 bits\"},{\"id\":\"5794632340311420\",\"value\":\"16 bits\"},{\"id\":\"3606889063262749\",\"value\":\"4 bits\"},{\"id\":\"6353505176317913\",\"value\":\"5 bits\"}]},{\"id\":\"5594427548108522\",\"text\":\"Copy and Xcopy are same in the sense\",\"options\":[{\"id\":\"52351208967309\",\"value\":\"Both are internal commands of DOS\"},{\"id\":\"5004461370085853\",\"value\":\"Both are external commands of DOS\"},{\"id\":\"8019135822374770\",\"value\":\"Both can be used to copy file or group of files\"},{\"id\":\"2154724968608952\",\"value\":\"Both a and b\"}]},{\"id\":\"2093466862458539\",\"text\":\"What should be minimum requirement of random access memory (RAM) for internet access?\",\"options\":[{\"id\":\"1661600356572614\",\"value\":\"8 MB\"},{\"id\":\"1040219074490585\",\"value\":\"16 MB\"},{\"id\":\"196591728057480\",\"value\":\"32 MB\"},{\"id\":\"1840186937027818\",\"value\":\"64 MB\"}]},{\"id\":\"7140168554065825\",\"text\":\"DHCP stands for\",\"options\":[{\"id\":\"6975916636034438\",\"value\":\"Dynamic Host Configuration Protocol\"},{\"id\":\"551837967696656\",\"value\":\"Dual Host Configuration Protocol\"},{\"id\":\"5675768713841267\",\"value\":\"Dual Host Control Protocol\"},{\"id\":\"522403386692896\",\"value\":\"Dynamic Host Control Protocol\"}]},{\"id\":\"8920765945048876\",\"text\":\"E-Mail where \\\"E\\\" stands for\",\"options\":[{\"id\":\"2734566024678876\",\"value\":\"Electrical\"},{\"id\":\"3754496647941834\",\"value\":\"Electronic\"},{\"id\":\"1651944894130441\",\"value\":\"Election\"},{\"id\":\"2670293389775199\",\"value\":\"Easy\"}]},{\"id\":\"4688954022777886\",\"text\":\"Safari browser came into market in the year\",\"options\":[{\"id\":\"6791395674827140\",\"value\":\"2000\"},{\"id\":\"566589101466036\",\"value\":\"2001\"},{\"id\":\"5967845556482223\",\"value\":\"2002\"},{\"id\":\"5760082450599313\",\"value\":\"2003\"}]},{\"id\":\"5779165148909990\",\"text\":\"Which one of the following is not a search engine?\",\"options\":[{\"id\":\"2101496266920789\",\"value\":\"Bing\"},{\"id\":\"4074194729172097\",\"value\":\"Google\"},{\"id\":\"8707518810340289\",\"value\":\"Yahoo\"},{\"id\":\"4952948670698487\",\"value\":\"Windows\"}]},{\"id\":\"3114745076864100\",\"text\":\"Please type the text given below after clicking on 'Start Clock' Button. Click on Stop Clock' button when you have finished typing.\",\"options\":[{\"id\":\"872841290649917\",\"value\":\"The new bill being prepared on the lines of United Kingdom Traffic Management Act may also push for over Rs 2,000 fines for common offences such as red light jumping, not wearing seatbelt and helmet, and higher penalties for speeding, driving under influence of alcohol.I use CTRL^C 90% of the time (and CTRL^X the other 10%). I am your #1 fan!!\"},{\"id\":\"3338908027751811\",\"value\":\"\"},{\"id\":\"3338908027751811\",\"value\":\"\"},{\"id\":\"3338908027751811\",\"value\":\"\"}]},{\"id\":\"2603917323200726\",\"text\":\"'&#2488;&#2509;&#2463;&#2494;&#2480;&#2509;&#2463; &#2453;&#2509;&#2482;&#2453;' &#2476;&#2507;&#2468;&#2494;&#2478;&#2503; &#2453;&#2509;&#2482;&#2495;&#2453; &#2453;&#2480;&#2494;&#2480; &#2474;&#2480;&#2503; &#2472;&#2495;&#2458;&#2503;&#2480; &#2482;&#2503;&#2454;&#2494;&#2463;&#2495; &#2463;&#2494;&#2439;&#2474; &#2453;&#2480;&#2497;&#2472;&#2404; &#2463;&#2494;&#2439;&#2474; &#2486;&#2503;&#2487; &#2453;&#2480;&#2494;&#2480; &#2488;&#2478;&#2479;&#2492; &#2488;&#2509;&#2463;&#2474; &#2453;&#2509;&#2482;&#2453; &#2476;&#2494;&#2463;&#2472;&#2503; &#2453;&#2509;&#2482;&#2495;&#2453; &#2453;&#2480;&#2497;&#2472;&#2404;<br><br><b style='color:#CD5C5C'>“Please change the keyboard language from English to Bengali while attempting Bengali Typing relation Question and similarly change the keyboard language from Bengali to English in case attempting English typing related questions.”<br>\\r\\n‍\\\"অনুগ্রহ করে বাংলা টাইপিং সম্পর্কিত প্রশ্নগুলির উত্তর দেওয়ার সময়ে কি-বোর্ডে ভাষা ইংরাজীর থেকে বাংলায় বদল করে নিন এবং একইভাবে ইংরাজী টাইপিং সম্পর্কিত প্রশ্নগুলির উত্তর দেওয়ার সময়ে কি-বোর্ড বাংলা থেকে ইংরাজীতে বদল করে নিন৷‍\\\"</b><br><br>\",\"options\":[{\"id\":\"4737921929257457\",\"value\":\"দালিমিয়া-জৈন গ্রুপের গুরুতর ভুল কাজের ইঙ্গিত করে ভিভিয়ান বোস কমিশনের প্রতিবেদন অনুসরণ করে বিচারপতি জে এল নেনের অধীনে বোম্বে হাই কোর্টের বেনিট কোলম্যানের বিদ্যমান বোর্ডটি ভাঙ্গার এবং সরকারের অধীনে একটি নতুন বোর্ড গঠন করার জন্য অন্তর্বর্তীকালীন আদেশ গৃহীত হয়। বেঞ্চ এই আদেশ দেয় যে, \\\"এই পরিস্থিতিতে, সর্বোত্তম জিনিসটি হ&#39;ল এই আদেশগুলি পাসপোর্টারদের দ্বারা করা অভিযোগগুলি যে কোম্পানির বিষয়গুলি জনগণের স্বার্থে এবং স্বার্থের প্রতি অনুরূপভাবে পরিচালিত হচ্ছে, কোম্পানি সঠিক।\"},{\"id\":\"3338908027751811\",\"value\":\"\"},{\"id\":\"3338908027751811\",\"value\":\"\"},{\"id\":\"3338908027751811\",\"value\":\"\"}]}]}";
-		
-        // var obj1 = JSON.parse(y)
-		
-        // var x = "";
-		// 	for (i in obj1.questions) {
-		// 		var ques = obj1.questions[i];
-		// 		var _count = Number(i) + 1 + ". ";
-		// 		x += "<div class='ques-cont'> <div class='ques-title'>" + _count + ques.text + "</div> <a class='search-icon' target=\"_blank\" href=\"https://www.google.com/search?q=" + ques.text +"\">search</a></div>"  + "<br>";
-		// 		for(j in ques.options){
-		// 			x += "<input class='ques-radio' type=\"radio\" id=\"" + ques.options[j].id + "\"name=\"" + ques.id + "\" value=\"" +ques.options[j].id + "\"><label class='ques-options' for=\"" + ques.options[j].id + "\">"+ques.options[j].value+"</label><br>"
-		// 		}
-
-		// 	}
-		// 	document.getElementById("demo").innerHTML = x;
-        //     document.getElementById("welcome").style.display = "none";
-        //     document.getElementById("main").style.display = "block";
-
-		
+       
 	</script>
 	
 </html>
