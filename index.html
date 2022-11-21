@@ -48,7 +48,6 @@
         width: 50%;
         float: left;
         padding-left: 20px;
-        height: 150px;
     }
     .options-cont{
         display: flex;
@@ -57,39 +56,6 @@
         font-weight: 700;
         padding: 20px;
         font-size: 1.5em;
-    }
-
-    .dababy{
-        max-width: 250px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .cheems-gif{
-        margin-top: 40px;
-    }
-
-    .cat{
-        width: 150px;
-        height: 150px;
-    }
-
-    .big-chungus{
-        max-height: 150px;
-    }
-
-    .aot{
-        max-height: 150px;
-        border-radius: 10px;
-        display: none;
-    }
-
-    .aot-text{
-        margin: 0;
-        padding: 0;
-        font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        display: none;
     }
 
     .ques-cont{
@@ -101,7 +67,7 @@
         font-weight: 460;   
         margin-bottom: 7px;
         margin-top: 15px;
-        display: inline-flex;
+        display: inline-block;
     }
 
     .ques-radio{
@@ -245,8 +211,8 @@
                 <img class="big-chungus" src="./img/big_chungus.png" alt="big chungus">
             </div>
             
-		    <!-- <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="document.getElementById('myFileInput').click()"> -->
-		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="quesLoad()">
+		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="document.getElementById('myFileInput').click()">
+		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="Load QUESTION PAPER" onclick="btLoadPaper()">
 
            
           
@@ -264,22 +230,31 @@
 
         function stripHtml(html)
         {
-        let tmp = document.createElement("DIV");
-        tmp.innerHTML = html;
-        return tmp.textContent || tmp.innerText || html;
+            let tmp = document.createElement("DIV");
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || html;
         }
 		
 		function readSingleFile(e) {
-		var file = e.target.files[0];
-		if (!file) {
-			return;
-		}
-		var reader = new FileReader();
-		reader.onload = function(e) {var contents = e.target.result;}
-		reader.readAsText(file);
-    };
-        function quesLoad(){
-			$.getJSON("https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json", function (obj1) {
+            var file = e.target.files[0];
+            if (!file) {
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {var contents = e.target.result;
+            quesLoad(JSON.parse(contents))
+            };
+            reader.readAsText(file);
+        }
+
+        function btLoadPaper(){
+            $.getJSON("https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json", function (obj1) {
+                quesLoad(obj1)
+            })
+        }
+
+        function quesLoad(obj1){
+			
                 
 			//var obj1 =JSON.parse(contents)
             var fileTitle = obj1.data.test.name;
@@ -292,10 +267,10 @@
                 quesAll.forEach(questions => {
 				var ques = questions
                 console.log(ques)
-				var _count = "<b>" + questions.order + "</b>" + ". &nbsp;"
+				var _count = "<b>" + questions.order + "</b>" + ".&nbsp;"
                 ques.text =  ques.name
                 var z = "<div class='jeff'>"
-				 z += "<div class='ques-cont'> <div class='ques-title'>" + _count + ques.text + "</div> <a class='search-icon' target=\"_blank\" href='https://www.google.com/search?q=" + ques.nameText +"'>search</a></div>";
+				 z += "<div class='ques-cont'> <div class='ques-title'><div class='row'>" + _count + ques.text + "</div></div> <a class='search-icon' target=\"_blank\" href='https://www.google.com/search?q=" + ques.nameText +"'>search</a></div>";
 				
                 z += "<div class='options-cont row'>"
                 const alphabets =["(a)","(b)","(c)","(d)"]
@@ -324,7 +299,7 @@
             //     syncTypeset.appendChild(done.cloneNode(true))
             // }, 3000)
 			
-		})
+		
     }
 		 document.getElementById('myFileInput').addEventListener('change', readSingleFile, false);
         
