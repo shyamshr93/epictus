@@ -62,6 +62,11 @@
         font-weight: 700;
         padding: 20px;
         font-size: 1.5em;
+        background-color: white;
+    }
+    
+    .btnQues:hover{
+        opacity: 0.8;
     }
 
     .ques-cont{
@@ -120,6 +125,10 @@
         font-weight: 500;
     }
 
+    #tbTitle:hover{
+        background-color: #e6e6e6;
+    }
+
     @media (max-width: 768px) {
         body{
         }
@@ -161,12 +170,31 @@
         <div class="container text-center mt-1" id="welcome">
             <div style="display: inline-flex;">
                 <h1 class="header mx-3">WELCOME</h1>
-                <img class="big-chungus" src="./img/big_chungus.png" alt="big chungus">
+                <img class="big-chungus" src="./img/big_chungus.png" height="250px" alt="big chungus">
             </div>
             
 		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="document.getElementById('myFileInput').click()">
-		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="Load QUESTION PAPER" onclick="btLoadPaper('https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json')">
-          
+            
+            <div class="ppr-collec">
+                <a class="btn btn-lg btnQues my-4" 
+                onclick="btLoadPaper('https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json')">FT-3</a>
+                
+                <a class="btn btn-lg btnQues my-4" 
+                onclick="btLoadPaper('https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json')">FT-3</a>
+                
+                <a class="btn btn-lg btnQues my-4" 
+                onclick="btLoadPaper('https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json')">FT-3</a>
+                
+                <a class="btn btn-lg btnQues my-4" 
+                onclick="btLoadPaper('https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/ft 5.json')">FT-5</a>
+                
+                <a class="btn btn-lg btnQues my-4" 
+                onclick="btLoadPaper('https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/ft-6(20-11).json')">FT-6</a>
+                
+                <a class="btn btn-lg btnQues my-4" 
+                onclick="btLoadPaper('https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/ft%207.json')">FT-7</a>
+            </div>
+		    
         </div>
         <div id="main" class="container-fluid mt-2 py-3" style="display: none;">
             <a id="tbTitle" onclick='return hideMain()'>QUESTIONS</a>
