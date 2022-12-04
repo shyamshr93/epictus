@@ -40,7 +40,7 @@
         font-size: 2.8em;
     }
     #main{
-        max-width: 1200px;
+        max-width: 1300px;
         background: white !important;
         box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
     }
@@ -51,6 +51,12 @@
     }
     .options-cont{
         display: flex;
+    }
+    .ques-title p{
+        display: contents;
+    }
+    mjx-container[jax="CHTML"]{
+        margin: auto 5px;
     }
     .btnQues{
         font-weight: 700;
@@ -86,7 +92,7 @@
     background-color: #6d6d6d;
     color: white;
     padding: 2px;
-    display: table;
+    display: none;
     font-size: 0.6em;
     position: absolute;
     padding-left: 5px;
@@ -94,67 +100,25 @@
     border-radius: 5px;
     }
 
-
-
-    [type="radio"]:checked+label{
-        font-weight: 700;
+    .ans-cont{
+        display: flex;
+        max-width: 800px;
+    margin: 10px auto;
     }
-    [type="radio"]:checked,
-        [type="radio"]:not(:checked) {
-            position: absolute;
-            left: -9999px;
-        }
 
-        [type="radio"]:checked+label,
-        [type="radio"]:not(:checked)+label {
-            position: relative;
-            padding-left: 28px;
-            cursor: pointer;
-            line-height: 20px;
-            display: inline-block;
-        }
+    .ans-opt{
+        text-align: end;
+        width: 80px;
+        flex-basis: auto;
+    }
 
-        [type="radio"]:checked+label:before,
-        [type="radio"]:not(:checked)+label:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 18px;
-            height: 18px;
-            border: 1px solid #ddd;
-            border-radius: 100%;
-            background: #fff;
-        }
-
-        [type="radio"]:checked+label:after,
-        [type="radio"]:not(:checked)+label:after {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background: #068427;
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            border-radius: 100%;
-            -webkit-transition: all 0.2s ease;
-            transition: all 0.2s ease;
-        }
-
-        [type="radio"]:not(:checked)+label:after {
-            opacity: 0;
-            -webkit-transform: scale(0);
-            transform: scale(0);
-        }
-
-        [type="radio"]:checked+label:after {
-            opacity: 1;
-            -webkit-transform: scale(1);
-            transform: scale(1);
-        }
-
-
-    
+    #tbTitle{
+        display: block;
+        font-size: 1.75rem;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: 500;
+    }
 
     @media (max-width: 768px) {
         body{
@@ -189,17 +153,6 @@
         .ques-title{
             line-height: 1.3;
         }
-
-        .mikasa1{
-            position: absolute;
-            right: auto;
-            top: auto;
-            bottom: 0;
-            left: 0;
-            margin: 20px;
-            margin-bottom: 30px;
-            height: 120px;
-        }
     }
 
     
@@ -212,15 +165,16 @@
             </div>
             
 		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="UPLOAD QUESTION PAPER" onclick="document.getElementById('myFileInput').click()">
-		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="Load QUESTION PAPER" onclick="btLoadPaper()">
-
-           
+		    <input class="btn btn-lg btnQues my-4" type="button" id="get_file" value="Load QUESTION PAPER" onclick="btLoadPaper('https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json')">
           
         </div>
         <div id="main" class="container-fluid mt-2 py-3" style="display: none;">
-            <h3 id="tbTitle">QUESTIONS</h3>
-            <div style="display: flex;">
+            <a id="tbTitle" onclick='return hideMain()'>QUESTIONS</a>
+            <div id="mainCont" style="display: flex;">
                 <div id="demo" class="container-fluid"></div>
+            </div>
+            <div class="ans-cont row" id="ansCont">
+
             </div>
         </div>
 		<input type="file" id="myFileInput" style="display: none;" />
@@ -247,10 +201,26 @@
             reader.readAsText(file);
         }
 
-        function btLoadPaper(){
-            $.getJSON("https://raw.githubusercontent.com/shyamshr93/epictus/main/ppr/full%20test%20-%203%20-%2030%2010%202022.json", function (obj1) {
+        function btLoadPaper(obj){
+            $.getJSON(obj, function (obj1) {
                 quesLoad(obj1)
             })
+        }
+
+        function makeTableHTML(myArray) {
+            var result = "";
+            for(var i=0; i<myArray.length; i++) {
+               
+                result += "<div class='ans-opt col'>" + "&nbsp;" + (i+1) + ".&nbsp;" + myArray[i]+"</div>";
+            }
+
+            return result;
+        }
+        
+        function hideMain(){
+            $('#main').hide();
+            $('#welcome').show();
+            return false;
         }
 
         function quesLoad(obj1){
@@ -261,31 +231,34 @@
             console.log(fileTitle)
             var secObj = obj1.data.sections[0]
 			var x = "";
-            
-			
-                var quesAll = secObj.questions;
-                quesAll.forEach(questions => {
-				var ques = questions
+            var quesAll = secObj.questions;
+            var ans = []
+
+            quesAll.forEach(questions => {
+                var ques = questions
                 console.log(ques)
-				var _count = "<b>" + questions.order + "</b>" + ".&nbsp;"
+                var _count = "<b>" + questions.order + "</b>" + ".&nbsp;"
                 ques.text =  ques.name
                 var z = "<div class='jeff'>"
-				 z += "<div class='ques-cont'> <div class='ques-title'><div class='row'>" + _count + ques.text + "</div></div> <a class='search-icon' target=\"_blank\" href='https://www.google.com/search?q=" + ques.nameText +"'>search</a></div>";
-				
+                    z += "<div class='ques-cont'> <div class='ques-title'><div class='row'><p>" + _count + ques.text + "</p></div></div> <a class='search-icon' target=\"_blank\" href='https://www.google.com/search?q=" + ques.nameText +"'>search</a></div>";
+                
                 z += "<div class='options-cont row'>"
                 const alphabets =["(a)","(b)","(c)","(d)"]
-                 for(j in ques.options){
+                    for(j in ques.options){
                     ques.options[j].value = stripHtml(ques.options[j].value);
-					
+                    if(ques.options[j].isCorrect){
+                        ans.push(alphabets[j])
+                    }
                     z+= "<div class='options-cont col'><div>" + "&nbsp;" + alphabets[j] + "&nbsp;</div>" + ques.options[j].name + "</div>"
                     //z += "<input class='ques-radio' type=\"radio\" id=\"" + ques.options[j]._id + "\"name=\"" + ques._id + "\" value=\"" +ques.options[j]._id + "\"><label class='ques-options' for=\"" + ques.options[j]._id + "\">"+ques.options[j].name+"</label>"
-				}
+                }
                 z+= "</div></div>"
                 x+=z
-			})
+            })
             
 			
 			document.getElementById("demo").innerHTML = x;
+			document.getElementById("ansCont").innerHTML = makeTableHTML(ans);
 			document.getElementById("tbTitle").innerText = fileTitle;
             document.getElementById("welcome").style.display = "none";
             document.getElementById("main").style.display = "block";
@@ -293,11 +266,8 @@
             content.textContent = document.getElementById("main").textContent
 
             const syncTypeset = document.querySelector('#main')
-            //syncTypeset.appendChild(content.cloneNode(true))
             MathJax.typeset()
-            // setTimeout(function () {
-            //     syncTypeset.appendChild(done.cloneNode(true))
-            // }, 3000)
+            
 			
 		
     }
